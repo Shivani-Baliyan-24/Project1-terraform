@@ -20,14 +20,14 @@ azure-terraform/
     │   ├── providers.tf          ← Azure provider + backend
     │   ├── main.tf               ← Calls vm module with dev values
     │   ├── variables.tf          ← Variable declarations
-    │   ├── terraform.tfvars  ✏️  ← YOUR VALUES GO HERE
+    │   ├── terraform.tfvars      ← YOUR VALUES GO HERE
     │   └── outputs.tf            ← Prints IP + RDP command after apply
     │
     └── prod/
         ├── providers.tf
         ├── main.tf
         ├── variables.tf
-        ├── terraform.tfvars  ✏️
+        ├── terraform.tfvars  
         └── outputs.tf
 ```
 
@@ -44,37 +44,28 @@ azure-terraform/
 
 ---
 
-## Deploy DEV environment (step by step)
-
-### Step 1 — Edit your password (only thing you MUST change)
-Open `environments/dev/terraform.tfvars` and change the password:
-```
-admin_password = "YourStrongPassword123!"
-```
-Password rules: min 12 chars, must have uppercase + lowercase + number + symbol.
-
-### Step 2 — Go into the dev folder
+### Step 1 — Go into the dev folder
 ```bash
 cd environments/dev
 ```
 
-### Step 3 — Initialize Terraform (downloads Azure provider)
+### Step 2 — Initialize Terraform (downloads Azure provider)
 ```bash
 terraform init
 ```
 
-### Step 4 — Preview what will be created
+### Step 3 — Preview what will be created
 ```bash
 terraform plan
 ```
 
-### Step 5 — Create the infrastructure
+### Step 4 — Create the infrastructure
 ```bash
 terraform apply
 ```
 Type `yes` when prompted. Takes ~3-5 minutes.
 
-### Step 6 — Get your VM's IP and RDP command
+### Step 5 — Get your VM's IP and RDP command
 After apply finishes, you'll see:
 ```
 Outputs:
@@ -82,7 +73,7 @@ Outputs:
   rdp_command = "mstsc /v:20.x.x.x"
 ```
 
-### Step 7 — Connect via RDP
+### Step 6 — Connect via RDP
 - Press **Win+R**, type the `mstsc /v:20.x.x.x` command
 - Username: `adminuser`
 - Password: whatever you set in terraform.tfvars
@@ -112,7 +103,7 @@ terraform destroy
 ---
 
 ## Change the Azure region
-In `terraform.tfvars`, change:
+In `terraform.tfvars`:
 ```
 location = "Central India"   # or "UK South", "West Europe", etc.
 ```
